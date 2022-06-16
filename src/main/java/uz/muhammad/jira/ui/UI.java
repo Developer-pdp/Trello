@@ -30,6 +30,8 @@ public class UI {
 
     private static void signIn() {
 
+        userService.findAll(new UserCriteria()).getStatus();
+
     }
 
     /**
