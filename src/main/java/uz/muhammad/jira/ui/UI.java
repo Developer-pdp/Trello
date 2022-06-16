@@ -19,13 +19,17 @@ public class UI {
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
 
     public static void main(String[] args) {
-        Writer.println("User Create -> 1");
-        Writer.println("User List -> 2");
+        Writer.println("Sign up -> 1");
+        Writer.println("Sign in -> 2");
         String choice = new Scanner(System.in).next();
-        if (choice.equals("1")) userCreate();
-        else if (choice.equals("2")) userList();
+        if (choice.equals("1")) signUp();
+        else if (choice.equals("2")) signIn();
         else System.exit(0);
         main(args);
+    }
+
+    private static void signIn() {
+
     }
 
     /**
@@ -45,7 +49,7 @@ public class UI {
     /**
      * UI method for creating user
      */
-    private static void userCreate() {
+    private static void signUp() {
 
         UserCreateVO.UserCreateVOBuilder builder = UserCreateVO.builder();
         builder.userName(Reader.readLine("Username : "));
