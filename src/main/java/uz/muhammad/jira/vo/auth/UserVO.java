@@ -17,9 +17,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class UserVO extends GenericVO {
+    private Long id;
     private String userName;
     private String password;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public UserVO(User user) {
         super(user.getId());

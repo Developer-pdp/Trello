@@ -7,6 +7,7 @@ import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.domains.auth.User;
 import uz.muhammad.jira.mappers.BaseMapper;
+import uz.muhammad.jira.mappers.UserMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.UserRepository;
 import uz.muhammad.jira.services.GenericCRUDService;
@@ -37,7 +38,6 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull UserCreateVO dto) {
-        User user = new User();
         Optional<User> userOptional = repository.findByUsername(dto.getUserName());
         if (userOptional.isPresent()) {
             return new ResponseEntity<>(new Data<>(ErrorVO
@@ -46,12 +46,13 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
                     .status(400)
                     .build()));
         }
+        UserVO userVO = new UserVO();
+        userVO.setPassword(dto.getPassword());
+        userVO.setUserName(dto.getUserName());
 
-        user.setUserName(dto.getUserName());
-        user.setPassword(dto.getPassword());
-        repository.create(user);
+        repository.create(UserMapper.getUser(userVO));
 
-        return new ResponseEntity<>(new Data<>(user.getId()));
+        return new ResponseEntity<>(new Data<>(userVO.getId()));
     }
 
     @Override

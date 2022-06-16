@@ -45,8 +45,6 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
      */
     @Override
     public void create(User entity) {
-        entity.setId(System.currentTimeMillis());
-        entity.setCreatedAt(LocalDateTime.now());
         users.add(entity);
     }
 

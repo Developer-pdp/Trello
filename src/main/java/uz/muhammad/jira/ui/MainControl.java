@@ -2,6 +2,7 @@ package uz.muhammad.jira.ui;
 
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.OrgCriteria;
+import uz.muhammad.jira.domains.auth.Organization;
 import uz.muhammad.jira.services.auth.OrgService;
 import uz.muhammad.jira.utils.Color;
 import uz.muhammad.jira.utils.Reader;
@@ -43,6 +44,7 @@ public class MainControl {
         Data<List<OrgVO>> data =  responseData.getData();
         if(data.isSuccess()){
             Writer.println(responseData.getData().getBody(), Color.GREEN);
+            OrgControl.control(responseData.getData().getBody()); // organization menu
         } else {
             Writer.println(responseData.getData().getError(), Color.RED);
         }
