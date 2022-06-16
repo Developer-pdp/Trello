@@ -29,7 +29,27 @@ public class UI {
     }
 
     private static void signIn() {
+        Session session = new Session();
+        UserVO.UserVOBuilder builder = UserVO.childBuilder();
+        builder.userName(Reader.readLine("Username : "));
+        builder.password(Reader.readLine("Password : "));
+        UserVO userVO = builder.build();
+        ResponseEntity<Data<List<UserVO>>> responseData = userService.findAll(new UserCriteria());
+        Data<List<UserVO>> data = responseData.getData();
 
+
+
+        for (UserVO vo : data.getBody()) {
+            if (vo.getUserName().equals(userVO.getUserName()) && vo.getPassword().equals(userVO.getPassword())){
+                session.setUserName(vo.getUserName());
+                session.setPassword(vo.getPassword());
+                if (data.isSuccess()) {
+                    Writer.println(responseData.getData(), Color.GREEN);
+                    return;
+                }
+            }
+        }
+        Writer.println(data.getError(), Color.RED);
     }
 
     /**
