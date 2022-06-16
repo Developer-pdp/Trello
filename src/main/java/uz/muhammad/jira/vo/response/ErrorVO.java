@@ -3,6 +3,7 @@ package uz.muhammad.jira.vo.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@ToString
 public class ErrorVO {
     private String friendlyMessage;
     private String developerMessage;
