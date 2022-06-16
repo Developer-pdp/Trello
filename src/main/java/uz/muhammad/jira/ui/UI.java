@@ -1,5 +1,6 @@
 package uz.muhammad.jira.ui;
 
+import lombok.Setter;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.services.auth.UserService;
@@ -17,6 +18,8 @@ import java.util.Scanner;
 public class UI {
 
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
+
+    public static Session session = new Session();
 
     public static void main(String[] args) {
         Writer.println("Sign up -> 1");
@@ -37,19 +40,19 @@ public class UI {
         ResponseEntity<Data<List<UserVO>>> responseData = userService.findAll(new UserCriteria());
         Data<List<UserVO>> data = responseData.getData();
 
-
-
         for (UserVO vo : data.getBody()) {
             if (vo.getUserName().equals(userVO.getUserName()) && vo.getPassword().equals(userVO.getPassword())){
                 session.setUserName(vo.getUserName());
                 session.setPassword(vo.getPassword());
                 if (data.isSuccess()) {
-                    Writer.println(responseData.getData(), Color.GREEN);
+                    MainControl.control();
+                    Writer.println(responseData.getData().getBody(), Color.GREEN);
                     return;
                 }
             }
         }
         Writer.println(data.getError(), Color.RED);
+
     }
 
     /**

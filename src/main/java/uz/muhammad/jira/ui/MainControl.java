@@ -1,5 +1,7 @@
 package uz.muhammad.jira.ui;
 
+import uz.muhammad.jira.utils.Writer;
+
 /**
  * @author Team <Developers>
  * @project TrelloBY
@@ -7,6 +9,7 @@ package uz.muhammad.jira.ui;
  */
 public class MainControl {
     public static void control(){
-        
+        Writer.println("1. Add organization");
+
     }
 }

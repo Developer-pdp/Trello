@@ -28,7 +28,10 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
     private static final List<User> users = load();
 
 
-
+    /**
+     * loading users list from database
+     * @return list of users
+     */
     private static List<User> load() {
         // TODO: 6/15/2022 load data from file here
 
@@ -36,12 +39,17 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
     }
 
 
+    /**
+     * creating the user and adding to the list
+     * @param  entity of user
+     */
     @Override
     public void create(User entity) {
         entity.setId(System.currentTimeMillis());
         entity.setCreatedAt(LocalDateTime.now());
         users.add(entity);
     }
+
 
     @Override
     public void update(User entity) {
