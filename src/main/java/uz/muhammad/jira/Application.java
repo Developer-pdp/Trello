@@ -1,10 +1,11 @@
 package uz.muhammad.jira;
 
 /**
- * @author "Elmurodov Javohir"
- * @since 14/06/22/14:31 (Tuesday)
- * jira/IntelliJ IDEA
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 
 public class Application {
     public static void main(String[] args) {

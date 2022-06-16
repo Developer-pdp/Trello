@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * @author "Elmurodov Javohir"
- * @since 14/06/22/15:09 (Tuesday)
- * jira/IntelliJ IDEA
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 
 @Getter
 @ToString

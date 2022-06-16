@@ -7,8 +7,8 @@ import uz.muhammad.jira.services.auth.OrgService;
 import uz.muhammad.jira.utils.Color;
 import uz.muhammad.jira.utils.Reader;
 import uz.muhammad.jira.utils.Writer;
-import uz.muhammad.jira.vo.auth.OrgCreateVO;
-import uz.muhammad.jira.vo.auth.OrgVO;
+import uz.muhammad.jira.vo.auth.orgVO.OrgCreateVO;
+import uz.muhammad.jira.vo.auth.orgVO.OrgVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
@@ -39,7 +39,6 @@ public class MainControl {
     }
 
     private static void showMyOrganizations() {
-
         ResponseEntity<Data<List<OrgVO>>> responseData = orgService.findAll(new OrgCriteria());
         Data<List<OrgVO>> data =  responseData.getData();
         if(data.isSuccess()){

@@ -1,10 +1,11 @@
 package uz.muhammad.jira.enums;
 
 /**
- * @author Yusupov Muhammadqodir
+ * @author Team <Developers>
  * @project TrelloBY
- * @since 15/06/22   23:30   (Wednesday)
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 public enum TaskStatus {
 
 }

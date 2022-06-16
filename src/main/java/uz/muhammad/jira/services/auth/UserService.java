@@ -1,7 +1,5 @@
 package uz.muhammad.jira.services.auth;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
@@ -11,9 +9,9 @@ import uz.muhammad.jira.mappers.UserMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.UserRepository;
 import uz.muhammad.jira.services.GenericCRUDService;
-import uz.muhammad.jira.vo.auth.UserCreateVO;
-import uz.muhammad.jira.vo.auth.UserUpdateVO;
-import uz.muhammad.jira.vo.auth.UserVO;
+import uz.muhammad.jira.vo.auth.userVO.UserCreateVO;
+import uz.muhammad.jira.vo.auth.userVO.UserUpdateVO;
+import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
 import uz.muhammad.jira.vo.response.ResponseEntity;

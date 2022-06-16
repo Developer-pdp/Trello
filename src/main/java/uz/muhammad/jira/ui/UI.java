@@ -1,19 +1,24 @@
 package uz.muhammad.jira.ui;
 
-import lombok.Setter;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.services.auth.UserService;
 import uz.muhammad.jira.utils.Color;
 import uz.muhammad.jira.utils.Reader;
 import uz.muhammad.jira.utils.Writer;
-import uz.muhammad.jira.vo.auth.UserCreateVO;
-import uz.muhammad.jira.vo.auth.UserVO;
+import uz.muhammad.jira.vo.auth.userVO.UserCreateVO;
+import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
 import java.util.List;
 import java.util.Scanner;
+
+/**
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
+ */
 
 public class UI {
 
@@ -41,7 +46,7 @@ public class UI {
         Data<List<UserVO>> data = responseData.getData();
 
         for (UserVO vo : data.getBody()) {
-            if (vo.getUserName().equals(userVO.getUserName()) && vo.getPassword().equals(userVO.getPassword())){
+            if (vo.getUserName().equals(userVO.getUserName()) && vo.getPassword().equals(userVO.getPassword())) {
                 session.setUserName(vo.getUserName());
                 session.setPassword(vo.getPassword());
                 if (data.isSuccess()) {

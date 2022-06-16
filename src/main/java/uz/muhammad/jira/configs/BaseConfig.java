@@ -1,9 +1,10 @@
 package uz.muhammad.jira.configs;
 
 /**
- * @author "Elmurodov Javohir"
- * @since 14/06/22/16:29 (Tuesday)
- * jira/IntelliJ IDEA
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 public class BaseConfig {
 }
