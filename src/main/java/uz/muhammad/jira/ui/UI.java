@@ -1,14 +1,13 @@
 package uz.muhammad.jira.ui;
 
-import lombok.Setter;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.services.auth.UserService;
 import uz.muhammad.jira.utils.Color;
 import uz.muhammad.jira.utils.Reader;
 import uz.muhammad.jira.utils.Writer;
-import uz.muhammad.jira.vo.auth.UserCreateVO;
-import uz.muhammad.jira.vo.auth.UserVO;
+import uz.muhammad.jira.vo.auth.userVO.UserCreateVO;
+import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
