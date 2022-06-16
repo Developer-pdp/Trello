@@ -3,9 +3,10 @@ package uz.muhammad.jira.vo.auth;
 import uz.muhammad.jira.vo.GenericVO;
 
 /**
- * @author "Elmurodov Javohir"
- * @since 14/06/22/15:41 (Tuesday)
- * jira/IntelliJ IDEA
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 public class UserUpdateVO extends GenericVO {
 }

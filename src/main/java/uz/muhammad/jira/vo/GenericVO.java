@@ -3,10 +3,11 @@ package uz.muhammad.jira.vo;
 import lombok.*;
 
 /**
- * @author "Elmurodov Javohir"
- * @since 14/06/22/15:18 (Tuesday)
- * jira/IntelliJ IDEA
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 @Getter
 @Setter
 @NoArgsConstructor

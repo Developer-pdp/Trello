@@ -15,6 +15,12 @@ import uz.muhammad.jira.vo.response.ResponseEntity;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Team <Developers>
+ * @project TrelloBY
+ * @since 16/06/22   11:31   (Thursday)
+ */
+
 public class UI {
 
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
@@ -41,7 +47,7 @@ public class UI {
         Data<List<UserVO>> data = responseData.getData();
 
         for (UserVO vo : data.getBody()) {
-            if (vo.getUserName().equals(userVO.getUserName()) && vo.getPassword().equals(userVO.getPassword())){
+            if (vo.getUserName().equals(userVO.getUserName()) && vo.getPassword().equals(userVO.getPassword())) {
                 session.setUserName(vo.getUserName());
                 session.setPassword(vo.getPassword());
                 if (data.isSuccess()) {
