@@ -1,6 +1,7 @@
 package uz.muhammad.jira.domains.auth;
 
 import lombok.*;
+import uz.muhammad.jira.domains.BaseEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-public class Project {
+public class Project implements BaseEntity {
     private Long id;
     private String name;
     private List<Column> columns;

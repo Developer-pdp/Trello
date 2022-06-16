@@ -6,7 +6,7 @@ import uz.muhammad.jira.vo.BaseVO;
 /**
  * @author Team <Developers>
  * @project Trello
- * @since 16/06/22  15:02 (Thursday)
+ * @since 16/06/22   15:58   (Thursday)
  */
 @Getter
 @Setter

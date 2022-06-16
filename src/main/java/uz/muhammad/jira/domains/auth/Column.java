@@ -1,5 +1,7 @@
 package uz.muhammad.jira.domains.auth;
 
+import uz.muhammad.jira.domains.BaseEntity;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  * @project TrelloBY
  * @since 15/06/22   23:21   (Wednesday)
  */
-public class Column {
+public class Column implements BaseEntity {
     private Long id;
     private String name;
     private List<Task> tasks;
