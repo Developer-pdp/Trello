@@ -2,7 +2,6 @@ package uz.muhammad.jira.vo.auth;
 
 import lombok.*;
 import uz.muhammad.jira.domains.auth.Project;
-import uz.muhammad.jira.domains.auth.User;
 import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
