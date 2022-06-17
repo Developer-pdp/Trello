@@ -23,7 +23,9 @@ public abstract class AbstractRepository<
         M extends BaseMapper> {
 
     protected final R repository;
+
     protected final M mapper;
+
     protected final Gson gson;
 
     protected AbstractRepository(R repository, M mapper) {

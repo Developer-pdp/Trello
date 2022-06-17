@@ -4,7 +4,6 @@ import lombok.NonNull;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.domains.auth.User;
-import uz.muhammad.jira.mappers.BaseMapper;
 import uz.muhammad.jira.mappers.UserMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.UserRepository;
@@ -16,6 +15,7 @@ import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +24,12 @@ import java.util.Optional;
  *
  */
 
-public class UserService extends AbstractRepository<UserRepository, BaseMapper> implements
+public class UserService extends AbstractRepository<UserRepository, UserMapper> implements
         GenericCRUDService<UserVO, UserCreateVO, UserUpdateVO, UserCriteria, Long> {
 
     private static UserService instance;
 
-
-    private UserService(UserRepository repository, BaseMapper mapper) {
+    private UserService(UserRepository repository, UserMapper mapper) {
         super(repository, mapper);
     }
 
@@ -48,42 +47,65 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
         userVO.setPassword(dto.getPassword());
         userVO.setUserName(dto.getUserName());
 
-        repository.create(UserMapper.getUser(userVO));
+        repository.create(mapper.getUser(userVO));
 
         return new ResponseEntity<>(new Data<>(userVO.getId()));
     }
 
     @Override
-    public ResponseEntity<Data<Void>> delete(@NonNull Long aLong) {
-        return null;
+    public ResponseEntity<Data<String>> delete(@NonNull Long id) {
+        Optional<User> userOptional = repository.findById(id);
+
+        ResponseEntity<Data<String>> response;
+
+        if (userOptional.isEmpty()){
+            return new ResponseEntity<>(new Data<>(new ErrorVO("ID nor found", "ID not found", 500)));
+        }
+        UserVO userVO = mapper.getUserVO(userOptional.get());
+        repository.deleteByID(mapper.getUser(userVO).getId());
+        Data<String> data = new Data<>("User deleted");
+         response = new ResponseEntity<>(data);
+        return response;
     }
 
     @Override
-    public ResponseEntity<Data<Void>> update(@NonNull UserUpdateVO dto) {
-        User user = new User();
-        Optional<User> userOptional = repository.findById(dto.getId());
-        if (userOptional.isPresent()) {
+    public ResponseEntity<Data<String>> update(@NonNull UserUpdateVO dto) {
 
-            return new ResponseEntity<>(new Data<>(ErrorVO
-                    .builder()
-                    //.friendlyMessage("User Name '%s' already taken".formatted(dto.getName()))
-                    .status(400)
-                    .build()));
+        Optional<User> userOptional = repository.findById(dto.getId());
+
+        if (userOptional.isEmpty()){
+            return new ResponseEntity<>(new Data<>(new ErrorVO("ID not found", "ID not found", 500)));
         }
 
-//        user.setUserName(dto.getUserName());
-//        user.setPassword(dto.getPassword());
-//        repository.create(user);
-//
-//        return new ResponseEntity<>(new Data<>(user.getId()));
-        return null;
+        UserVO userVO = mapper.getUserVO(userOptional.get());
+        userVO.setUserName(dto.getUserName());
+        userVO.setPassword(dto.getPassword());
+        userVO.setUpdatedAt(LocalDateTime.now());
+        repository.update(mapper.getUser(userVO));
+        Data<String> data = new Data<>("User updated");
+        ResponseEntity<Data<String>> response = new ResponseEntity<>(data);
+
+        return response;
 
     }
+
 
     @Override
-    public ResponseEntity<Data<UserVO>> findById(@NonNull Long aLong) {
-        return null;
+    public ResponseEntity<Data<UserVO>> findById(@NonNull Long id) {
+
+        Optional<User> userOptional = repository.findById(id);
+
+        ResponseEntity<Data<UserVO>> response;
+        if (userOptional.isPresent()){
+            response = new ResponseEntity<>(new Data<>(mapper.getUserVO(userOptional.get())));
+            return response;
+        }
+        ErrorVO errorVO = new ErrorVO("User not found", "User not found", 400);
+        response = new ResponseEntity<>(new Data<>(errorVO));
+        return response;
     }
+
+
 
     @Override
     public ResponseEntity<Data<List<UserVO>>> findAll(@NonNull UserCriteria criteria) {
@@ -97,11 +119,11 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
     }
 
     public static UserService getInstance() {
+
         if (instance == null) {
             instance = new UserService(
                     ApplicationContextHolder.getBean(UserRepository.class),
-                    ApplicationContextHolder.getBean(BaseMapper.class)
-            );
+                    ApplicationContextHolder.getBean(UserMapper.class));
         }
         return instance;
     }

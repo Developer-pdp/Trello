@@ -2,7 +2,6 @@ package uz.muhammad.jira.ui;
 
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.OrgCriteria;
-import uz.muhammad.jira.domains.auth.Organization;
 import uz.muhammad.jira.services.auth.OrgService;
 import uz.muhammad.jira.utils.Color;
 import uz.muhammad.jira.utils.Reader;
@@ -19,15 +18,16 @@ import java.util.List;
  * @project TrelloBY
  * @since 16/06/22   11:54   (Thursday)
  */
-public class MainControl {
+
+public class MainMenu {
 
     private final static OrgService orgService = ApplicationContextHolder.getBean(OrgService.class);
 
     public static void control(){
+
         Writer.println("1. Add organization");
         Writer.println("2. Show my organizations");
         Writer.println("0. Back");
-
 
         String choice = Reader.readLine(" => ");
 
@@ -38,12 +38,14 @@ public class MainControl {
 
     }
 
+
+
     private static void showMyOrganizations() {
         ResponseEntity<Data<List<OrgVO>>> responseData = orgService.findAll(new OrgCriteria());
         Data<List<OrgVO>> data =  responseData.getData();
         if(data.isSuccess()){
             Writer.println(responseData.getData().getBody(), Color.GREEN);
-            OrgControl.control(responseData.getData().getBody()); // organization menu
+            OrgMenu.showAll(responseData.getData().getBody()); // organization menu
         } else {
             Writer.println(responseData.getData().getError(), Color.RED);
         }
@@ -59,7 +61,7 @@ public class MainControl {
 
         if (responseData.getData().isSuccess()) {
             Writer.println(responseData.getData().getBody(), Color.GREEN);
-
+            showMyOrganizations(); // Add and show All
         } else {
             Writer.println(responseData.getData().getError(), Color.RED);
         }

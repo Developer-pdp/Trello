@@ -18,5 +18,6 @@ import java.time.LocalDateTime;
 @ToString
 public class UserUpdateVO extends GenericVO {
     private String userName;
+    private String password;
     private LocalDateTime updatedAt;
 }
