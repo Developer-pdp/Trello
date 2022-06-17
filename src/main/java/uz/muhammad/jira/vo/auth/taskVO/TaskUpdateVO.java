@@ -1,29 +1,29 @@
-package uz.muhammad.jira.domains.auth;
+package uz.muhammad.jira.vo.auth.taskVO;
 
 import lombok.*;
-import uz.muhammad.jira.domains.BaseEntity;
+import uz.muhammad.jira.domains.auth.Comment;
+import uz.muhammad.jira.domains.auth.Member;
 import uz.muhammad.jira.enums.TaskStatus;
+import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author Yusupov Muhammadqodir
- * @project TrelloBY
- * @since 15/06/22   23:24   (Wednesday)
+ * @author Team <Developers>
+ * @project Trello
+ * @since 17/06/22  14:44 (Friday)
  */
-@Getter
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-@Builder
-public class Task implements BaseEntity {
-    private Long id;
+@AllArgsConstructor
+@ToString
+
+public class TaskUpdateVO  extends GenericVO {
     private String name;
     private List<Comment> comments;
     private List<Member> members;
-    private LocalDateTime createdAt;
-    private Long createdBy;
     private LocalDateTime updatedAt;
     private Long updatedBy;
     private TaskStatus status;

@@ -51,12 +51,17 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
 
     @Override
     public void update(User entity) {
-
+        users.add(entity);
     }
 
     @Override
-    public void deleteByID(Long aLong) {
-
+    public void deleteByID(Long id) {
+        for (User user : users) {
+            if(user.getId().equals(id)){
+                users.remove(user);
+                break;
+            }
+        }
     }
 
     @Override

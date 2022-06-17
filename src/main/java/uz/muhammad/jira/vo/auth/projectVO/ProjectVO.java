@@ -1,8 +1,8 @@
-package uz.muhammad.jira.vo.auth.orgVO;
+package uz.muhammad.jira.vo.auth.projectVO;
 
 import lombok.*;
 import uz.muhammad.jira.domains.auth.Organization;
-import uz.muhammad.jira.domains.auth.User;
+import uz.muhammad.jira.domains.auth.Project;
 import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 /**
  * @author Team <Developers>
  * @project Trello
- * @since 16/06/22   15:59   (Thursday)
+ * @since 17/06/22  14:43 (Friday)
  */
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class OrgVO extends GenericVO {
+public class ProjectVO extends GenericVO {
     private Long id;
     private String name;
     private LocalDateTime createdAt;
@@ -25,15 +25,15 @@ public class OrgVO extends GenericVO {
     private LocalDateTime updatedAt;
     private Long updatedBy;
 
-    public OrgVO(Organization organization) {
-        super(organization.getId());
-        this.name = organization.getName();
-        this.createdAt = organization.getCreatedAt();
-        this.createdBy = organization.getCreatedBy();
+    public ProjectVO(Project project) {
+        super(project.getId());
+        this.name = project.getName();
+        this.createdAt = project.getCreatedAt();
+        this.createdBy = project.getCreatedBy();
     }
 
     @Builder(builderMethodName = "childBuilder")
-    public OrgVO(Long id, String name, LocalDateTime createdAt, Long createdBy) {
+    public ProjectVO(Long id, String name, LocalDateTime createdAt, Long createdBy) {
         super(id);
         this.name = name;
         this.createdAt = createdAt;

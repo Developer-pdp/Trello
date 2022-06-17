@@ -1,6 +1,6 @@
 package uz.muhammad.jira.ui;
 
-import uz.muhammad.jira.vo.auth.OrgVO;
+import uz.muhammad.jira.vo.auth.orgVO.OrgVO;
 
 import java.util.List;
 

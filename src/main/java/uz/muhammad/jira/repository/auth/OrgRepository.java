@@ -39,12 +39,17 @@ public class OrgRepository implements GenericCRUDRepository<Organization, OrgCri
 
     @Override
     public void update(Organization entity) {
-
+        organizations.add(entity);
     }
 
     @Override
-    public void deleteByID(Long aLong) {
-
+    public void deleteByID(Long id) {
+        for (Organization organization : organizations) {
+            if(organization.getId().equals(id)){
+                organizations.remove(organization);
+                break;
+            }
+        }
     }
 
     @Override

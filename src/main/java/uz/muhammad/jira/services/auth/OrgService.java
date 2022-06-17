@@ -1,9 +1,11 @@
 package uz.muhammad.jira.services.auth;
 
 import lombok.NonNull;
+import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.OrgCriteria;
 import uz.muhammad.jira.domains.auth.Organization;
 import uz.muhammad.jira.mappers.BaseMapper;
+import uz.muhammad.jira.mappers.OrgMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.OrgRepository;
 import uz.muhammad.jira.services.GenericCRUDService;
@@ -14,6 +16,7 @@ import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +35,7 @@ public class OrgService extends AbstractRepository<OrgRepository, BaseMapper> im
 
     @Override
     public ResponseEntity<Data<Long>> create(@NonNull OrgCreateVO dto) {
-        Organization organization = new Organization();
+        OrgVO orgVO = new OrgVO();
         Optional<Organization> orgOptional = repository.findByUsername(dto.getName());
         if (orgOptional.isPresent()) {
             return new ResponseEntity<>(new Data<>(ErrorVO
@@ -42,10 +45,10 @@ public class OrgService extends AbstractRepository<OrgRepository, BaseMapper> im
                     .build()));
         }
 
-        organization.setName(dto.getName());
-        repository.create(organization);
+        orgVO.setName(dto.getName());
+        repository.create(OrgMapper.getOrganization(orgVO));
 
-        return new ResponseEntity<>(new Data<>(organization.getId()));
+        return new ResponseEntity<>(new Data<>(orgVO.getId()));
     }
 
     @Override
@@ -65,6 +68,21 @@ public class OrgService extends AbstractRepository<OrgRepository, BaseMapper> im
 
     @Override
     public ResponseEntity<Data<List<OrgVO>>> findAll(@NonNull OrgCriteria criteria) {
-        return null;
+        List<OrgVO> orgList = repository.findAll(criteria)
+                .orElse(new ArrayList<>())
+                .stream().map(OrgVO::new)
+                .toList();
+
+        return new ResponseEntity<>(new Data<>(orgList, orgList.size()));
+    }
+
+    public static OrgService getInstance() {
+        if (instance == null) {
+            instance = new OrgService(
+                    ApplicationContextHolder.getBean(OrgRepository.class),
+                    ApplicationContextHolder.getBean(BaseMapper.class)
+            );
+        }
+        return instance;
     }
 }

@@ -60,7 +60,24 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
 
     @Override
     public ResponseEntity<Data<Void>> update(@NonNull UserUpdateVO dto) {
+        User user = new User();
+        Optional<User> userOptional = repository.findById(dto.getId());
+        if (userOptional.isPresent()) {
+
+            return new ResponseEntity<>(new Data<>(ErrorVO
+                    .builder()
+                    //.friendlyMessage("User Name '%s' already taken".formatted(dto.getName()))
+                    .status(400)
+                    .build()));
+        }
+
+//        user.setUserName(dto.getUserName());
+//        user.setPassword(dto.getPassword());
+//        repository.create(user);
+//
+//        return new ResponseEntity<>(new Data<>(user.getId()));
         return null;
+
     }
 
     @Override

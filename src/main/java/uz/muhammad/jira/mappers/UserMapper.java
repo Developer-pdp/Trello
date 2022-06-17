@@ -1,7 +1,8 @@
 package uz.muhammad.jira.mappers;
 
 import uz.muhammad.jira.domains.auth.User;
-import uz.muhammad.jira.vo.auth.UserVO;
+import uz.muhammad.jira.vo.auth.userVO.UserVO;
+
 
 import java.time.LocalDateTime;
 
