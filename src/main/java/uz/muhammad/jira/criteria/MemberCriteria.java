@@ -5,5 +5,5 @@ package uz.muhammad.jira.criteria;
  * @project Trello
  * @since 16/06/22   15:20   (Thursday)
  */
-public class UserCriteria extends GenericCriteria {
+public class MemberCriteria extends GenericCriteria{
 }
