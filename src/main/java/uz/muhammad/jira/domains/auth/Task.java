@@ -1,5 +1,6 @@
 package uz.muhammad.jira.domains.auth;
 
+import lombok.*;
 import uz.muhammad.jira.enums.TaskStatus;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,12 @@ import java.util.List;
  * @project TrelloBY
  * @since 15/06/22   23:24   (Wednesday)
  */
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Task {
     private Long id;
     private String name;
