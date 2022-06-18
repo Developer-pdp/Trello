@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
 public class OrgVO extends GenericVO {
     private LocalDateTime createdAt;
     private Long createdBy;

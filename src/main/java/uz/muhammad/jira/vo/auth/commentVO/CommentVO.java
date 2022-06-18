@@ -1,6 +1,7 @@
 package uz.muhammad.jira.vo.auth.commentVO;
 
 import lombok.Builder;
+import uz.muhammad.jira.domains.auth.Comment;
 import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
@@ -19,5 +20,8 @@ public class CommentVO extends GenericVO {
     public CommentVO(LocalDateTime createdAt, Long createdBy) {
         this.createdAt = createdAt;
         this.createdBy = createdBy;
+    }
+
+    public CommentVO(Comment comment) {
     }
 }
