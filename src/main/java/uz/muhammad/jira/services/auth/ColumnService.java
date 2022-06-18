@@ -61,12 +61,12 @@ public class ColumnService extends AbstractRepository<ColumnRepository, BaseMapp
     }
 
     @Override
-    public ResponseEntity<Data<Void>> delete(@NonNull Long aLong) {
+    public ResponseEntity<Data<String>> delete(@NonNull Long aLong) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Data<Void>> update(@NonNull ColumnUpdateVO dto) {
+    public ResponseEntity<Data<String>> update(@NonNull ColumnUpdateVO dto) {
         return null;
     }
 

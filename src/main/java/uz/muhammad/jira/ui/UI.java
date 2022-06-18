@@ -50,7 +50,7 @@ public class UI {
                 session.setUserName(vo.getUserName());
                 session.setPassword(vo.getPassword());
                 if (data.isSuccess()) {
-                    MainControl.control();
+                    MainMenu.control();
                     Writer.println(responseData.getData().getBody(), Color.GREEN);
                     return;
                 }

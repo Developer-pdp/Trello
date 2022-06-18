@@ -35,4 +35,5 @@ public class Data<T> {
         this.error = error;
         this.success = false;
     }
+    
 }

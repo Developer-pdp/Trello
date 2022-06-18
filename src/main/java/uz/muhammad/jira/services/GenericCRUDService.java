@@ -50,7 +50,7 @@ public interface GenericCRUDService<
      * @param id ID of entity
      * @return it returns nothing just delete the entity who in this ID
      */
-    ResponseEntity<Data<Void>> delete(@NonNull ID id);
+    ResponseEntity<Data<String>> delete(@NonNull ID id);
 
     /**
      *
@@ -58,6 +58,6 @@ public interface GenericCRUDService<
      * @return ->
     it returns nothing just update this entity (dto)
      */
-    ResponseEntity<Data<Void>> update(@NonNull UVO dto);
+    ResponseEntity<Data<String>> update(@NonNull UVO dto);
 
 }
