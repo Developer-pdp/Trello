@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
  */
 public class UserMapper implements BaseMapper {
 
+    private static UserMapper instance;
     public  User getUser(UserVO userVO){
         User user = new User();
         user.setUserName(userVO.getUserName());
@@ -29,6 +30,13 @@ public class UserMapper implements BaseMapper {
         userVO.setId(System.currentTimeMillis());
         userVO.setCreatedAt(LocalDateTime.now());
         return userVO;
+    }
+
+    public static UserMapper getInstance() {
+        if (instance == null) {
+            instance = new UserMapper();
+        }
+        return instance;
     }
 
 

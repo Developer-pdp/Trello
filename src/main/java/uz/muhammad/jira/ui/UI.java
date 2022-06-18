@@ -2,6 +2,7 @@ package uz.muhammad.jira.ui;
 
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
+import uz.muhammad.jira.repository.auth.UserRepository;
 import uz.muhammad.jira.services.auth.UserService;
 import uz.muhammad.jira.utils.Color;
 import uz.muhammad.jira.utils.Reader;
@@ -11,18 +12,33 @@ import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author Team <Developers>
+ * @author Team Developers
  * @project TrelloBY
  * @since 16/06/22   11:31   (Thursday)
  */
 
 public class UI {
 
+   // loading files
+
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
+
+    static {
+        File file = new File("src/main/resources/users.json");
+        try {
+            file.createNewFile();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static Session session = new Session();
 

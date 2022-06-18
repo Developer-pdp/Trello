@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
  * @since 17/06/22  15:22 (Friday)
  */
 public class OrgMapper implements BaseMapper {
+
+    private static OrgMapper instance;
+
     public static Organization getOrganization(OrgVO orgVO){
         Organization organization = new Organization();
         organization.setName(orgVO.getName());
@@ -23,4 +26,10 @@ public class OrgMapper implements BaseMapper {
         return organization;
     }
 
+    public static OrgMapper getInstance() {
+        if (instance == null){
+            instance = new OrgMapper();
+        }
+        return instance;
+    }
 }

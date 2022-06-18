@@ -24,6 +24,7 @@ import java.util.Optional;
  *
  */
 
+
 public class UserService extends AbstractRepository<UserRepository, UserMapper> implements
         GenericCRUDService<UserVO, UserCreateVO, UserUpdateVO, UserCriteria, Long> {
 

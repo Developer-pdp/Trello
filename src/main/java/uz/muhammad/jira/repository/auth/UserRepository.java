@@ -31,6 +31,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserRepository implements GenericCRUDRepository<User, UserCriteria, Long> {
 
+
     private static UserRepository instance;
     private static Gson gson = ApplicationContextHolder.getBean(Gson.class);
     private static final List<User> users = load();
@@ -48,6 +49,9 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
             FileReader reader = new FileReader("src/main/resources/users.json");
             Type type = new TypeToken<List<User>>(){}.getType();
             List<User> userList = gson.fromJson(reader, type);
+            if (userList==null){
+                userList = new ArrayList<>();
+            }
             return userList;
 
         } catch (FileNotFoundException e) {

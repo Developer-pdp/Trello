@@ -80,7 +80,7 @@ public class OrgService extends AbstractRepository<OrgRepository, BaseMapper> im
         if (instance == null) {
             instance = new OrgService(
                     ApplicationContextHolder.getBean(OrgRepository.class),
-                    ApplicationContextHolder.getBean(BaseMapper.class)
+                    ApplicationContextHolder.getBean(OrgMapper.class)
             );
         }
         return instance;
