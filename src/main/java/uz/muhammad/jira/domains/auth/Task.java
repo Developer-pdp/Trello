@@ -1,6 +1,7 @@
 package uz.muhammad.jira.domains.auth;
 
 import lombok.*;
+import uz.muhammad.jira.domains.BaseEntity;
 import uz.muhammad.jira.enums.TaskStatus;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Task {
+public class Task implements BaseEntity {
     private Long id;
     private String name;
     private List<Comment> comments;
