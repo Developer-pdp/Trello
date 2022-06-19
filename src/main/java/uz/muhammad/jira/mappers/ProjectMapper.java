@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
  * @since 17/06/22  15:22 (Friday)
  */
 public class ProjectMapper implements BaseMapper {
+
+    private static ProjectMapper instance;
+
     public static Project getProject(ProjectVO projectVO){
         Project project = new Project();
         project.setName(projectVO.getName());
@@ -23,4 +26,27 @@ public class ProjectMapper implements BaseMapper {
         return project;
     }
 
+    public static ProjectMapper getInstance() {
+
+        if (instance == null){
+        instance = new ProjectMapper();
+    }
+    return instance;
+    }
+
+    public ProjectVO getProjectVo(Project project) {
+
+        ProjectVO projectVO = new ProjectVO();
+        projectVO.setId(project.getId());
+        projectVO.setName(project.getName());
+        projectVO.setDeadline(project.getDeadline());
+        projectVO.setCreatedBy(project.getCreatedBy());
+        projectVO.setCreatedAt(project.getCreatedAt());
+        projectVO.setBlocked(project.isBlocked());
+        projectVO.setDeleted(project.isDeleted());
+        projectVO.setColumns(project.getColumns());
+        projectVO.setMembers(project.getMembers());
+        return projectVO;
+
+    }
 }

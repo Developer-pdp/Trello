@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  *
@@ -45,8 +46,10 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
                     .build()));
         }
         UserVO userVO = new UserVO();
-        userVO.setPassword(dto.getPassword());
+        userVO.setId(System.currentTimeMillis());
         userVO.setUserName(dto.getUserName());
+        userVO.setPassword(dto.getPassword());
+        userVO.setEmail(dto.getEmail());
 
         repository.create(mapper.getUser(userVO));
 
@@ -60,8 +63,9 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
         ResponseEntity<Data<String>> response;
 
         if (userOptional.isEmpty()){
-            return new ResponseEntity<>(new Data<>(new ErrorVO("ID nor found", "ID not found", 500)));
+            return new ResponseEntity<>(new Data<>(new ErrorVO("ID not found", "ID not found", 500)));
         }
+
         UserVO userVO = mapper.getUserVO(userOptional.get());
         repository.deleteByID(mapper.getUser(userVO).getId());
         Data<String> data = new Data<>("User deleted");
@@ -111,12 +115,17 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
     @Override
     public ResponseEntity<Data<List<UserVO>>> findAll(@NonNull UserCriteria criteria) {
 
-        List<UserVO> userList = repository.findAll(criteria)
-                .orElse(new ArrayList<>())
-                .stream().map(UserVO::new)
-                .toList();
+        List<User> userList = repository.findAll(new UserCriteria()).get();
 
-        return new ResponseEntity<>(new Data<>(userList, userList.size()));
+        List<UserVO> userVOS = new ArrayList<>();
+
+        for (User user : userList) {
+            userVOS.add(mapper.getUserVO(user));
+        }
+
+        ResponseEntity<Data<List<UserVO>>> listResponseEntity = new ResponseEntity<>(new Data<>(userVOS, userVOS.size()));
+
+        return listResponseEntity;
     }
 
     public static UserService getInstance() {
@@ -129,4 +138,19 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
         return instance;
     }
 
+    public ResponseEntity<Data<Void>> addOrgToUser(Long userId, Long orgId) {
+        repository.addOrgToUser(userId,orgId);
+        return new ResponseEntity<>(new Data<>(null));
+    }
+
+    public List<UserVO> getUsersByIds(Set<Long> userIds) {
+
+        List<UserVO> users = new ArrayList<>();
+
+        for (Long id : userIds) {
+            users.add(findById(id).getData().getBody());
+        }
+
+        return users;
+    }
 }

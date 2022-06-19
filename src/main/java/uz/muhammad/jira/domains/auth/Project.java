@@ -4,6 +4,7 @@ import lombok.*;
 import uz.muhammad.jira.domains.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,12 +22,13 @@ import java.util.List;
 public class Project implements BaseEntity {
     private Long id;
     private String name;
-    private List<Column> columns;
-    private List<Member> members;
+    private List<Long> columns = new ArrayList<>();
+    private List<Long> members = new ArrayList<>();
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime updatedAt;
     private Long updatedBy;
-    private boolean blocked;
-    private boolean deleted;
+    private LocalDateTime deadline;
+    private boolean blocked = false;
+    private boolean deleted = false;
 }

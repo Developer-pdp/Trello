@@ -6,6 +6,7 @@ import uz.muhammad.jira.vo.auth.orgVO.OrgVO;
 import uz.muhammad.jira.vo.auth.userVO.UserVO;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * @author Team <Developers>
@@ -17,11 +18,14 @@ public class OrgMapper implements BaseMapper {
     private static OrgMapper instance;
 
     public static Organization getOrganization(OrgVO orgVO){
+
         Organization organization = new Organization();
+        organization.setId(orgVO.getId());
         organization.setName(orgVO.getName());
-        organization.setId(System.currentTimeMillis());
-        organization.setCreatedAt(LocalDateTime.now());
-        organization.setCreatedBy(orgVO.getId());
+        organization.setProjects(orgVO.getProjects());
+        organization.setCreatedBy(orgVO.getCreatedBy());
+        organization.setCreatedAt(orgVO.getCreatedAt());
+        organization.setMembers(orgVO.getMembers());
 
         return organization;
     }
@@ -31,5 +35,32 @@ public class OrgMapper implements BaseMapper {
             instance = new OrgMapper();
         }
         return instance;
+    }
+
+    public OrgVO getOrgVO(Organization organization) {
+        OrgVO orgVO = new OrgVO();
+        /**
+         * Long id;
+         * String name;
+         * Long ownerId;
+         * List<Long> projects = new ArrayLi
+         * List<Long> members = new ArrayLis
+         * LocalDateTime createdAt;
+         * Long createdBy;
+         * LocalDateTime updatedAt;
+         * Long updatedBy;
+         * Boolean deleted = false;
+         * Boolean blocked=  false;
+         */
+        orgVO.setId(organization.getId());
+        orgVO.setName(organization.getName());
+        orgVO.setProjects(organization.getProjects());
+        orgVO.setMembers(organization.getMembers());
+        orgVO.setCreatedAt(organization.getCreatedAt());
+        orgVO.setUpdatedAt(organization.getUpdatedAt());
+        orgVO.setUpdatedBy(organization.getUpdatedBy());
+        orgVO.setDeleted(organization.getDeleted());
+        orgVO.setBlocked(organization.getBlocked());
+        return orgVO;
     }
 }

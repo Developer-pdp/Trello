@@ -2,10 +2,7 @@ package uz.muhammad.jira.repository.auth;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import uz.muhammad.jira.criteria.OrgCriteria;
 import uz.muhammad.jira.criteria.TaskCriteria;
-import uz.muhammad.jira.domains.auth.Organization;
-import uz.muhammad.jira.domains.auth.Project;
 import uz.muhammad.jira.domains.auth.Task;
 import uz.muhammad.jira.repository.GenericCRUDRepository;
 

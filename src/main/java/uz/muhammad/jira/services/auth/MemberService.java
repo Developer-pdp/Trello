@@ -4,6 +4,7 @@ import lombok.NonNull;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.MemberCriteria;
 import uz.muhammad.jira.mappers.BaseMapper;
+import uz.muhammad.jira.mappers.MemberMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.MemberRepository;
 import uz.muhammad.jira.services.GenericCRUDService;
@@ -20,11 +21,11 @@ import java.util.List;
  * @project Trello
  * @since 17/06/22   21:42   (Friday)
  */
-public class MemberService  extends AbstractRepository<MemberRepository, BaseMapper> implements
+public class MemberService  extends AbstractRepository<MemberRepository, MemberMapper> implements
         GenericCRUDService<MemberVO, MemberCreateVO, MemberUpdateVO, MemberCriteria, Long> {
     private static MemberService instance;
 
-    protected MemberService(MemberRepository repository, BaseMapper mapper) {
+    protected MemberService(MemberRepository repository, MemberMapper mapper) {
         super(repository, mapper);
     }
 
@@ -32,7 +33,7 @@ public class MemberService  extends AbstractRepository<MemberRepository, BaseMap
         if (instance == null) {
             instance = new MemberService(
                     ApplicationContextHolder.getBean(MemberRepository.class),
-                    ApplicationContextHolder.getBean(BaseMapper.class)
+                    ApplicationContextHolder.getBean(MemberMapper.class)
             );
         }
         return instance;

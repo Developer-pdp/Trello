@@ -2,9 +2,7 @@ package uz.muhammad.jira.repository.auth;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import uz.muhammad.jira.criteria.OrgCriteria;
 import uz.muhammad.jira.criteria.ProjectCriteria;
-import uz.muhammad.jira.domains.auth.Organization;
 import uz.muhammad.jira.domains.auth.Project;
 import uz.muhammad.jira.repository.GenericCRUDRepository;
 
@@ -32,8 +30,6 @@ public class ProjectRepository implements GenericCRUDRepository<Project, Project
     }
     @Override
     public void create(Project entity) {
-        entity.setId(System.currentTimeMillis());
-        entity.setCreatedAt(LocalDateTime.now());
         projects.add(entity);
     }
 

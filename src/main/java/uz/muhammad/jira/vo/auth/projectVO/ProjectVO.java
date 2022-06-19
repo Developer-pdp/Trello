@@ -6,6 +6,8 @@ import uz.muhammad.jira.domains.auth.Project;
 import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Team <Developers>
@@ -20,10 +22,15 @@ import java.time.LocalDateTime;
 public class ProjectVO extends GenericVO {
     private Long id;
     private String name;
+    private List<Long> columns = new ArrayList<>();
+    private List<Long> members = new ArrayList<>();
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime updatedAt;
     private Long updatedBy;
+    private LocalDateTime deadline;
+    private boolean blocked;
+    private boolean deleted;
 
     public ProjectVO(Project project) {
         super(project.getId());

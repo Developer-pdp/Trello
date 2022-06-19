@@ -2,9 +2,7 @@ package uz.muhammad.jira.configs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import uz.muhammad.jira.mappers.BaseMapper;
-import uz.muhammad.jira.mappers.OrgMapper;
-import uz.muhammad.jira.mappers.UserMapper;
+import uz.muhammad.jira.mappers.*;
 import uz.muhammad.jira.repository.auth.*;
 import uz.muhammad.jira.services.auth.MemberService;
 import uz.muhammad.jira.services.auth.*;
@@ -25,6 +23,7 @@ public class ApplicationContextHolder {
 
             case "ProjectService" -> (T) ProjectService.getInstance();
             case "ProjectRepository" -> (T) ProjectRepository.getInstance();
+            case "ProjectMapper" -> (T) ProjectMapper.getInstance();
 
             case "ProjectColumnService" -> (T) ColumnService.getInstance();
             case "ProjectColumnRepository" -> (T) ColumnRepository.getInstance();
@@ -37,6 +36,7 @@ public class ApplicationContextHolder {
 
             case "MemberService" -> (T) MemberService.getInstance();
             case "MemberRepository" -> (T) MemberRepository.getInstance();
+            case "MemberMapper" -> (T) MemberMapper.getInstance();
 
             default -> throw new RuntimeException("Bean with name '%s' not found".formatted(clazz.getSimpleName()));
         };

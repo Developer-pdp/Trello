@@ -47,7 +47,8 @@ public class CommentRepository implements GenericCRUDRepository<Comment, Comment
 
     @Override
     public Optional<List<Comment>> findAll(CommentCriteria criteria) {
-        return Optional.of(comments);
+//        return Optional.of(comments);
+    return null;
     }
 
     public static CommentRepository getInstance(){

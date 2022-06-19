@@ -5,12 +5,13 @@ import uz.muhammad.jira.domains.BaseEntity;
 import uz.muhammad.jira.enums.TaskStatus;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Yusupov Muhammadqodir
+ * @author Team Developers
  * @project TrelloBY
- * @since 15/06/22   23:24   (Wednesday)
+ * @since 16/06/22   11:31   (Thursday)
  */
 
 @Getter
@@ -21,8 +22,8 @@ import java.util.List;
 public class Task implements BaseEntity {
     private Long id;
     private String name;
-    private List<Comment> comments;
-    private List<Member> members;
+    private List<Long> comments = new ArrayList<>();
+    private List<Long> members = new ArrayList<>();
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime updatedAt;

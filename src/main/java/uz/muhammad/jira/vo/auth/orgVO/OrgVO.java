@@ -6,6 +6,10 @@ import uz.muhammad.jira.domains.auth.Project;
 import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Team <Developers>
@@ -18,12 +22,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class OrgVO extends GenericVO {
+    private Long id;
+    private String name;
+    private Long ownerId;
+    private List<Long> projects = new ArrayList<>();
+    private Map<Long, String> members = new HashMap<>();
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime updatedAt;
     private Long updatedBy;
-    private Long id;
-    private String name;
+    private Boolean deleted  = false;
+    private Boolean blocked = false;
 
     public OrgVO(Organization organization) {
         super(organization.getId());
@@ -39,4 +48,5 @@ public class OrgVO extends GenericVO {
         this.id = id1;
         this.name = name;
     }
+
 }

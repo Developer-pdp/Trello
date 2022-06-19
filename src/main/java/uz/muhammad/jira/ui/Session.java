@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Session {
-    private String userName;
-    private String password;
+    public static String userName;
+    public static String password;
+    public static Long userId;
 }

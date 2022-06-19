@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
  * @since 17/06/22  15:23 (Friday)
  */
 public class MemberMapper implements BaseMapper {
+
+    private static MemberMapper instance;
+
 //    public static Member getMember(MemberVO memberVO){
 //        Member member = new Member();
 //        member.setName(memberVO.getName());
@@ -22,5 +25,12 @@ public class MemberMapper implements BaseMapper {
 //
 //        return member;
 //    }
+
+    public static MemberMapper getInstance() {
+        if (instance==null){
+            instance = new MemberMapper();
+        }
+        return instance;
+    }
 
 }

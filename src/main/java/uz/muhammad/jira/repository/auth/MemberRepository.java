@@ -6,7 +6,6 @@ import uz.muhammad.jira.criteria.MemberCriteria;
 import uz.muhammad.jira.domains.auth.Member;
 import uz.muhammad.jira.repository.GenericCRUDRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,6 @@ public class MemberRepository implements GenericCRUDRepository<Member, MemberCri
     @Override
     public void create(Member entity) {
         entity.setId(System.currentTimeMillis());
-        entity.setCreatedAt(LocalDateTime.now());
         members.add(entity);
     }
 

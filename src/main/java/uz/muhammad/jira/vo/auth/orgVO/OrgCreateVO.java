@@ -16,4 +16,5 @@ import uz.muhammad.jira.vo.BaseVO;
 @With
 public class OrgCreateVO implements BaseVO {
     private String name;
+    private Long createdBy;
 }

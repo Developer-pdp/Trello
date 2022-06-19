@@ -7,17 +7,13 @@ import lombok.NoArgsConstructor;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.domains.auth.User;
-import uz.muhammad.jira.mappers.BaseMapper;
 import uz.muhammad.jira.mappers.UserMapper;
-import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.GenericCRUDRepository;
-import uz.muhammad.jira.repository.Repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,12 +31,13 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
     private static UserRepository instance;
     private static Gson gson = ApplicationContextHolder.getBean(Gson.class);
     private static final List<User> users = load();
-
+    private static UserMapper userMapper = ApplicationContextHolder.getBean(UserMapper.class);
 
     /**
      * loading users list from database
      * @return list of users
      */
+
     private static List<User> load() {
         // TODO: 6/15/2022 load data from file here
 
@@ -112,13 +109,13 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
     }
 
     /**
-     *
      * @param criteria
      * @return
      */
     @Override
     public Optional<List<User>> findAll(UserCriteria criteria) {
-        return Optional.of(users);
+        Optional<List<User>> users1 = Optional.of(users);
+            return users1;
     }
 
 
@@ -133,5 +130,13 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
         return users.stream()
                 .filter(user -> user.getUserName().equalsIgnoreCase(userName))
                 .findFirst();
+    }
+
+    public void addOrgToUser(Long userId, Long orgId) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equals(userId)){
+                users.get(i).addOrganization(orgId);
+            }
+        }
     }
 }

@@ -3,6 +3,8 @@ package uz.muhammad.jira.vo.auth.userVO;
 import lombok.*;
 import uz.muhammad.jira.vo.BaseVO;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Team <Developers>
  * @project TrelloBY
@@ -18,4 +20,7 @@ import uz.muhammad.jira.vo.BaseVO;
 public class UserCreateVO implements BaseVO {
     private String userName;
     private String password;
+    private String email;
+    private LocalDateTime createdAt;
+
 }

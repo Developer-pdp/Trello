@@ -4,7 +4,6 @@ import lombok.NonNull;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.ProjectCriteria;
 import uz.muhammad.jira.domains.auth.Project;
-import uz.muhammad.jira.mappers.BaseMapper;
 import uz.muhammad.jira.mappers.ProjectMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.ProjectRepository;
@@ -12,10 +11,12 @@ import uz.muhammad.jira.services.GenericCRUDService;
 import uz.muhammad.jira.vo.auth.projectVO.ProjectCreateVO;
 import uz.muhammad.jira.vo.auth.projectVO.ProjectUpdateVO;
 import uz.muhammad.jira.vo.auth.projectVO.ProjectVO;
+import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +26,12 @@ import java.util.Optional;
  * @project Trello
  * @since 17/06/22  14:49 (Friday)
  */
-public class ProjectService extends AbstractRepository<ProjectRepository, BaseMapper> implements
+public class ProjectService extends AbstractRepository<ProjectRepository, ProjectMapper> implements
         GenericCRUDService<ProjectVO, ProjectCreateVO, ProjectUpdateVO, ProjectCriteria, Long> {
 
     private static ProjectService instance;
 
-    protected ProjectService(ProjectRepository repository, BaseMapper mapper) {
+    protected ProjectService(ProjectRepository repository, ProjectMapper mapper) {
         super(repository, mapper);
     }
 
@@ -45,7 +46,11 @@ public class ProjectService extends AbstractRepository<ProjectRepository, BaseMa
                     .build()));
         }
         ProjectVO projectVO = new ProjectVO();
+        projectVO.setId(System.currentTimeMillis());
         projectVO.setName(dto.getName());
+        projectVO.setCreatedBy(dto.getCreatedBy());
+        projectVO.setDeadline(dto.getDeadline());
+        projectVO.setCreatedAt(LocalDateTime.now());
 
         repository.create(ProjectMapper.getProject(projectVO));
 
@@ -63,8 +68,19 @@ public class ProjectService extends AbstractRepository<ProjectRepository, BaseMa
     }
 
     @Override
-    public ResponseEntity<Data<ProjectVO>> findById(@NonNull Long aLong) {
-        return null;
+    public ResponseEntity<Data<ProjectVO>> findById(@NonNull Long id) {
+        Optional<Project> optionalProject = repository.findById(id);
+
+        ResponseEntity<Data<ProjectVO>> response;
+
+        if (optionalProject.isPresent()){
+            response = new ResponseEntity<>(new Data<>(mapper.getProjectVo(optionalProject.get())));
+            return response;
+        }
+        ErrorVO errorVO = new ErrorVO("Project not found", "Project not found", 400);
+        response = new ResponseEntity<>(new Data<>(errorVO));
+        return response;
+
     }
 
     @Override
@@ -81,9 +97,21 @@ public class ProjectService extends AbstractRepository<ProjectRepository, BaseMa
         if (instance == null) {
             instance = new ProjectService(
                     ApplicationContextHolder.getBean(ProjectRepository.class),
-                    ApplicationContextHolder.getBean(BaseMapper.class)
+                    ApplicationContextHolder.getBean(ProjectMapper.class)
             );
         }
         return instance;
     }
+
+    public ResponseEntity<Data<List<ProjectVO>>> getProjectsByIds(List<Long> ids) {
+
+        List<ProjectVO> projects = new ArrayList<>();
+
+        for (Long id : ids) {
+            projects.add(findById(id).getData().getBody());
+        }
+
+        return new ResponseEntity<>(new Data<>(projects));
+    }
+
 }

@@ -4,9 +4,11 @@ import lombok.*;
 import uz.muhammad.jira.domains.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @author Team <Developers>
+ * @author Team Developers
  * @project TrelloBY
  * @since 16/06/22   11:31   (Thursday)
  */
@@ -21,6 +23,12 @@ public class User implements BaseEntity {
     private Long id;
     private String userName;
     private String password;
+    private String email;
+    private List<Long> organizations = new ArrayList<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void addOrganization(Long orgId) {
+        organizations.add(orgId);
+    }
 }

@@ -4,13 +4,15 @@ import lombok.*;
 import uz.muhammad.jira.domains.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Yusupov Muhammadqodir
+ * @author Team Developers
  * @project TrelloBY
- * @since 15/06/22   23:21   (Wednesday)
+ * @since 16/06/22   11:31   (Thursday)
  */
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +21,7 @@ import java.util.List;
 public class Column implements BaseEntity {
     private Long id;
     private String name;
-    private List<Task> tasks;
+    private List<Long> tasks =new ArrayList<>();
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime updatedAt;

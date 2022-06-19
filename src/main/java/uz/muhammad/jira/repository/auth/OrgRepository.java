@@ -3,12 +3,9 @@ package uz.muhammad.jira.repository.auth;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import uz.muhammad.jira.criteria.OrgCriteria;
-import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.domains.auth.Organization;
-import uz.muhammad.jira.domains.auth.User;
 import uz.muhammad.jira.repository.GenericCRUDRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,14 +29,12 @@ public class OrgRepository implements GenericCRUDRepository<Organization, OrgCri
     }
     @Override
     public void create(Organization entity) {
-        entity.setId(System.currentTimeMillis());
-        entity.setCreatedAt(LocalDateTime.now());
         organizations.add(entity);
     }
 
     @Override
     public void update(Organization entity) {
-        organizations.add(entity);
+        organizations.set(organizations.indexOf(entity), entity);
     }
 
     @Override
@@ -63,6 +58,10 @@ public class OrgRepository implements GenericCRUDRepository<Organization, OrgCri
     public Optional<List<Organization>> findAll(OrgCriteria criteria) {
         return Optional.of(organizations);
     }
+
+//    public Optional<List<Organization>> findAllById(Long id) {
+//        return Optional.of(organizations.stream().filter(org -> org.getOwnerId().equals(id)).toList());
+//    }
 
     public static OrgRepository getInstance() {
         if (instance == null) {

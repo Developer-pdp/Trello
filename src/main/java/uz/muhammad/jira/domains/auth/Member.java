@@ -7,9 +7,9 @@ import uz.muhammad.jira.enums.MemberStatus;
 import java.time.LocalDateTime;
 
 /**
- * @author Yusupov Muhammadqodir
+ * @author Team Developers
  * @project TrelloBY
- * @since 15/06/22   23:29   (Wednesday)
+ * @since 16/06/22   11:31   (Thursday)
  */
 
 @Getter
@@ -20,11 +20,9 @@ import java.time.LocalDateTime;
 public class Member implements BaseEntity {
     private Long id;
     private Long userId;
+    private Long organizationId;
+    private Long projectId;
     private MemberStatus status;
-    private LocalDateTime createdAt;
-    private Long createdBy;
-    private LocalDateTime updatedAt;
-    private Long updatedBy;
     private boolean blocked;
     private boolean deleted;
 }
