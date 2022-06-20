@@ -23,6 +23,7 @@ public class MemberRepository implements GenericCRUDRepository<Member, MemberCri
     public void create(Member entity) {
         entity.setId(System.currentTimeMillis());
         members.add(entity);
+
     }
 
     @Override
@@ -31,8 +32,8 @@ public class MemberRepository implements GenericCRUDRepository<Member, MemberCri
     }
 
     @Override
-    public void deleteByID(Long aLong) {
-
+    public boolean deleteByID(Long aLong) {
+        return false;
     }
 
     @Override

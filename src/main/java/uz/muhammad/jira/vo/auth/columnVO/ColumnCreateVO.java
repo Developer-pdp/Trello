@@ -3,6 +3,9 @@ package uz.muhammad.jira.vo.auth.columnVO;
 import lombok.*;
 import uz.muhammad.jira.vo.BaseVO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Team <Developers>
  * @project Trello
@@ -15,5 +18,7 @@ import uz.muhammad.jira.vo.BaseVO;
 @Builder
 @With
 public class ColumnCreateVO implements BaseVO {
+    private Long id;
     private String name;
+    private Long createdBy;
 }

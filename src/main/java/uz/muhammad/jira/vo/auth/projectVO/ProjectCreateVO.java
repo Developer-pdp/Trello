@@ -22,7 +22,7 @@ public class ProjectCreateVO implements BaseVO {
 
     private String name;
     private Long createdBy;
-    private LocalDateTime deadline;
+    private String deadline;
     private List<Long> members = new ArrayList<>();
 }
 /**

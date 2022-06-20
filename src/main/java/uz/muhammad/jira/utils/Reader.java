@@ -36,5 +36,13 @@ public class Reader {
         return readInt(Color.GREEN, placeHolder);
     }
 
+    public static int readIntMiddle(String placeHolder) {
+        Writer.printMiddleFixed(placeHolder, 80, ' ', Color.GREEN);
+        return readInt();
+    }
 
+    public static String readLineMiddle(String s) {
+        Writer.printMiddleFixed(s, 80, ' ', Color.GREEN);
+        return readLine();
+    }
 }

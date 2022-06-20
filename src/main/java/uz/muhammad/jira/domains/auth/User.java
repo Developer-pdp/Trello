@@ -25,8 +25,11 @@ public class User implements BaseEntity {
     private String password;
     private String email;
     private List<Long> organizations = new ArrayList<>();
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String createdAt;
+    private String updatedAt;
+    private boolean deleted;
+    private boolean blocked;
+
 
     public void addOrganization(Long orgId) {
         organizations.add(orgId);

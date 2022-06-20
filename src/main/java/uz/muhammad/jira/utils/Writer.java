@@ -80,6 +80,13 @@ public class Writer {
         Writer.println("");
     }
 
+    public static void printMiddleFixed(String text, int space, char with, String color) {
+        int mid = (space - text.length()) / 2;
+        for (int i = 0; i < mid; i++) {
+            System.out.print(with);
+        }
+        Writer.print(text, color);
 
+    }
 
 }

@@ -24,11 +24,11 @@ public class ProjectVO extends GenericVO {
     private String name;
     private List<Long> columns = new ArrayList<>();
     private List<Long> members = new ArrayList<>();
-    private LocalDateTime createdAt;
+    private String  createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String  updatedAt;
     private Long updatedBy;
-    private LocalDateTime deadline;
+    private String  deadline;
     private boolean blocked;
     private boolean deleted;
 
@@ -40,7 +40,7 @@ public class ProjectVO extends GenericVO {
     }
 
     @Builder(builderMethodName = "childBuilder")
-    public ProjectVO(Long id, String name, LocalDateTime createdAt, Long createdBy) {
+    public ProjectVO(Long id, String name, String createdAt, Long createdBy) {
         super(id);
         this.name = name;
         this.createdAt = createdAt;

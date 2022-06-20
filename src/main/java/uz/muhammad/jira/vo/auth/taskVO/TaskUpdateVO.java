@@ -24,7 +24,7 @@ public class TaskUpdateVO  extends GenericVO {
     private String name;
     private List<Comment> comments;
     private List<Member> members;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private Long updatedBy;
     private TaskStatus status;
     private boolean deleted;

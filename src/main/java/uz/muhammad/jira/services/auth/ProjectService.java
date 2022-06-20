@@ -11,7 +11,6 @@ import uz.muhammad.jira.services.GenericCRUDService;
 import uz.muhammad.jira.vo.auth.projectVO.ProjectCreateVO;
 import uz.muhammad.jira.vo.auth.projectVO.ProjectUpdateVO;
 import uz.muhammad.jira.vo.auth.projectVO.ProjectVO;
-import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
 import uz.muhammad.jira.vo.response.ResponseEntity;
@@ -50,7 +49,7 @@ public class ProjectService extends AbstractRepository<ProjectRepository, Projec
         projectVO.setName(dto.getName());
         projectVO.setCreatedBy(dto.getCreatedBy());
         projectVO.setDeadline(dto.getDeadline());
-        projectVO.setCreatedAt(LocalDateTime.now());
+        projectVO.setCreatedAt(LocalDateTime.now().toString());
 
         repository.create(ProjectMapper.getProject(projectVO));
 
@@ -59,12 +58,20 @@ public class ProjectService extends AbstractRepository<ProjectRepository, Projec
 
     @Override
     public ResponseEntity<Data<String>> delete(@NonNull Long aLong) {
-        return null;
+        repository.deleteByID(aLong);
+        return new ResponseEntity<>(new Data<>("Deleted"));
     }
 
     @Override
     public ResponseEntity<Data<String>> update(@NonNull ProjectUpdateVO dto) {
-        return null;
+        Project project = repository.findById(dto.getId()).get();
+        project.setName(dto.getName());
+        project.setUpdatedAt(dto.getUpdatedAt());
+        project.setUpdatedBy(dto.getUpdatedBy());
+
+        repository.update(project);
+        return new ResponseEntity<>(new Data<>("Updated"));
+
     }
 
     @Override
@@ -114,4 +121,18 @@ public class ProjectService extends AbstractRepository<ProjectRepository, Projec
         return new ResponseEntity<>(new Data<>(projects));
     }
 
+    public ResponseEntity<Data<String>> addColToPro(Long columnId, Long proId) {
+
+        for (Project project : repository.findAll(new ProjectCriteria()).get()) {
+            if (project.getId()==proId){
+                List<Long> columns = project.getColumns();
+                columns.add(columnId);
+                project.setColumns(columns);
+                repository.update(project);
+                return new ResponseEntity<>(new Data<>("Column added"));
+            }
+        }
+        return new ResponseEntity<>(new Data<>(new ErrorVO("Column not found", "Org not found", 400)));
+
+    }
 }

@@ -20,7 +20,7 @@ public class UserMapper implements BaseMapper {
         user.setUserName(userVO.getUserName());
         user.setPassword(userVO.getPassword());
         user.setEmail(userVO.getEmail());
-        user.setCreatedAt(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now().toString());
         return user;
     }
 
@@ -30,7 +30,7 @@ public class UserMapper implements BaseMapper {
         userVO.setId(user.getId());
         userVO.setUserName(user.getUserName());
         userVO.setPassword(user.getPassword());
-        userVO.setCreatedAt(LocalDateTime.now());
+        userVO.setCreatedAt(LocalDateTime.now().toString());
         userVO.setUpdatedAt(user.getUpdatedAt());
         userVO.setEmail(user.getEmail());
         return userVO;

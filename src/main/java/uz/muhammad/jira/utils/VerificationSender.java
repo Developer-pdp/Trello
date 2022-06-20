@@ -23,9 +23,9 @@ import javax.mail.internet.MimeMessage;
 public class VerificationSender {
 
     public static Map<String, String> randomCodes = new HashMap<>();
-    public static List<RandomCode> randomCodesList = new ArrayList<>();
+    public static List<RandomCode> randomCodesList = getFromJson();
     public static List<String> emails = new ArrayList<>();
-    public static Gson gson = new Gson();
+    public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private static String getRandomCode(){
         String random = RandomStringUtils.random(10, true, true);
@@ -67,8 +67,8 @@ public class VerificationSender {
         }
 
         try {
-//            getFromJson();
-            FileWriter fileWriter = new FileWriter("src/main/resources/randomCodes.json",true);
+
+            FileWriter fileWriter = new FileWriter("src/main/resources/randomCodes.json");
             Type type = new TypeToken<List<RandomCode>>() {}.getType();
             fileWriter.write(gson.toJson(randomCodesList,type));
             fileWriter.close();
@@ -85,6 +85,9 @@ public class VerificationSender {
             randomCodesList = gson.fromJson(fileReader,type);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+        if (randomCodesList==null){
+            randomCodesList = new ArrayList<>();
         }
         return randomCodesList;
     }

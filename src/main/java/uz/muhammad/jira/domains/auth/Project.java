@@ -24,11 +24,11 @@ public class Project implements BaseEntity {
     private String name;
     private List<Long> columns = new ArrayList<>();
     private List<Long> members = new ArrayList<>();
-    private LocalDateTime createdAt;
+    private String  createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String  updatedAt;
     private Long updatedBy;
-    private LocalDateTime deadline;
+    private String  deadline;
     private boolean blocked = false;
     private boolean deleted = false;
 }

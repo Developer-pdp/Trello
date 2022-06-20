@@ -26,14 +26,14 @@ public abstract class AbstractRepository<
 
     protected final M mapper;
 
-    protected final Gson gson;
+//    protected final Gson gson;
 
     protected AbstractRepository(R repository, M mapper) {
         this.repository = repository;
         this.mapper = mapper;
-        this.gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .setDateFormat("YYYY-MM-dd HH:mm:ss")
-                .create();
+//        this.gson = new GsonBuilder()
+//                .setPrettyPrinting()
+//                .setDateFormat("YYYY-MM-dd HH:mm:ss")
+//                .create();
     }
 }

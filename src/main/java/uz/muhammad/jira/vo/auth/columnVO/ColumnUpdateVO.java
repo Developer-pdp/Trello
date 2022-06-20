@@ -20,7 +20,7 @@ import java.util.List;
 public class ColumnUpdateVO extends GenericVO {
     private String name;
     private List<Task> tasks;
-    private LocalDateTime updatedAt;
+    private String  updatedAt;
     private Long updatedBy;
     private boolean blocked;
     private boolean deleted;

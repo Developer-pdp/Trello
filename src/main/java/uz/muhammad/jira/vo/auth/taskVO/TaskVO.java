@@ -3,9 +3,12 @@ package uz.muhammad.jira.vo.auth.taskVO;
 import lombok.*;
 import uz.muhammad.jira.domains.auth.Organization;
 import uz.muhammad.jira.domains.auth.Task;
+import uz.muhammad.jira.enums.TaskStatus;
 import uz.muhammad.jira.vo.GenericVO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Team <Developers>
@@ -20,23 +23,14 @@ import java.time.LocalDateTime;
 public class TaskVO extends GenericVO {
     private Long id;
     private String name;
-    private LocalDateTime createdAt;
+    private List<Long> comments = new ArrayList<>();
+    private List<Long> members = new ArrayList<>();
+    private String createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private Long updatedBy;
+    private TaskStatus status;
+    private boolean deleted;
 
-    public TaskVO(Task task) {
-        super(task.getId());
-        this.name = task.getName();
-        this.createdAt = task.getCreatedAt();
-        this.createdBy = task.getCreatedBy();
-    }
 
-    @Builder(builderMethodName = "childBuilder")
-    public TaskVO(Long id, String name, LocalDateTime createdAt, Long createdBy) {
-        super(id);
-        this.name = name;
-        this.createdAt = createdAt;
-        this.createdBy = createdBy;
-    }
 }

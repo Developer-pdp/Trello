@@ -20,5 +20,5 @@ public interface GenericCRUDRepository<
 
     void update(E entity);
 
-    void deleteByID(ID id);
+    boolean deleteByID(ID id);
 }

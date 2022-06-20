@@ -20,7 +20,7 @@ import java.util.List;
 public class OrgUpdateVO extends GenericVO {
     private String name;
     private List<Project> projectList;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private Long updatedBy;
     private Boolean deleted;
     private Boolean blocked;

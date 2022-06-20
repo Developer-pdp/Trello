@@ -24,9 +24,9 @@ public class Task implements BaseEntity {
     private String name;
     private List<Long> comments = new ArrayList<>();
     private List<Long> members = new ArrayList<>();
-    private LocalDateTime createdAt;
+    private String  createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String  updatedAt;
     private Long updatedBy;
     private TaskStatus status;
     private boolean deleted;

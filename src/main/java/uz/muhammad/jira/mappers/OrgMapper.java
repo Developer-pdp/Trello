@@ -24,7 +24,7 @@ public class OrgMapper implements BaseMapper {
         organization.setName(orgVO.getName());
         organization.setProjects(orgVO.getProjects());
         organization.setCreatedBy(orgVO.getCreatedBy());
-        organization.setCreatedAt(orgVO.getCreatedAt());
+        organization.setCreatedAt(orgVO.getCreatedAt().toString());
         organization.setMembers(orgVO.getMembers());
 
         return organization;
@@ -59,8 +59,8 @@ public class OrgMapper implements BaseMapper {
         orgVO.setCreatedAt(organization.getCreatedAt());
         orgVO.setUpdatedAt(organization.getUpdatedAt());
         orgVO.setUpdatedBy(organization.getUpdatedBy());
-        orgVO.setDeleted(organization.getDeleted());
-        orgVO.setBlocked(organization.getBlocked());
+        orgVO.setDeleted(organization.isDeleted());
+        orgVO.setBlocked(organization.isBlocked());
         return orgVO;
     }
 }

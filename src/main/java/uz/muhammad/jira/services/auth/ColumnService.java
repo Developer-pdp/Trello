@@ -3,22 +3,17 @@ package uz.muhammad.jira.services.auth;
 import lombok.NonNull;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
 import uz.muhammad.jira.criteria.ColumnCriteria;
-import uz.muhammad.jira.criteria.OrgCriteria;
+import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.domains.auth.Column;
-import uz.muhammad.jira.domains.auth.Organization;
 import uz.muhammad.jira.domains.auth.User;
 import uz.muhammad.jira.mappers.BaseMapper;
+import uz.muhammad.jira.mappers.ColumnMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.ColumnRepository;
-import uz.muhammad.jira.repository.auth.OrgRepository;
-import uz.muhammad.jira.repository.auth.UserRepository;
 import uz.muhammad.jira.services.GenericCRUDService;
 import uz.muhammad.jira.vo.auth.columnVO.ColumnCreateVO;
 import uz.muhammad.jira.vo.auth.columnVO.ColumnUpdateVO;
 import uz.muhammad.jira.vo.auth.columnVO.ColumnVO;
-import uz.muhammad.jira.vo.auth.orgVO.OrgCreateVO;
-import uz.muhammad.jira.vo.auth.orgVO.OrgUpdateVO;
-import uz.muhammad.jira.vo.auth.orgVO.OrgVO;
 import uz.muhammad.jira.vo.auth.userVO.UserVO;
 import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
@@ -33,12 +28,12 @@ import java.util.Optional;
  * @project Trello
  * @since 16/06/22  15:00 (Thursday)
  */
-public class ColumnService extends AbstractRepository<ColumnRepository, BaseMapper> implements
+public class ColumnService extends AbstractRepository<ColumnRepository, ColumnMapper> implements
         GenericCRUDService<ColumnVO, ColumnCreateVO, ColumnUpdateVO, ColumnCriteria, Long> {
 
     private static ColumnService instance;
 
-    private ColumnService(ColumnRepository repository, BaseMapper mapper) {
+    private ColumnService(ColumnRepository repository, ColumnMapper mapper) {
         super(repository, mapper);
     }
 
@@ -62,34 +57,70 @@ public class ColumnService extends AbstractRepository<ColumnRepository, BaseMapp
 
     @Override
     public ResponseEntity<Data<String>> delete(@NonNull Long aLong) {
-        return null;
+        repository.deleteByID(aLong);
+        return new ResponseEntity<>(new Data<>("Deleted"));
     }
 
     @Override
     public ResponseEntity<Data<String>> update(@NonNull ColumnUpdateVO dto) {
-        return null;
+        for (Column column : repository.findAll(new ColumnCriteria()).get()) {
+            if (column.getId()==dto.getId()){
+                column.setName(dto.getName());
+                repository.update(column);
+            }
+        }
+        return new ResponseEntity<>(new Data<>("Updated"));
     }
 
     @Override
-    public ResponseEntity<Data<ColumnVO>> findById(@NonNull Long aLong) {
-        return null;
+    public ResponseEntity<Data<ColumnVO>> findById(@NonNull Long id) {
+
+        Optional<Column> optionalColumn = repository.findById(id);
+
+        ResponseEntity<Data<ColumnVO>> response;
+
+        if (optionalColumn.isPresent()){
+            response = new ResponseEntity<>(new Data<>(mapper.getColumnVo(optionalColumn.get())));
+            return response;
+        }
+        ErrorVO errorVO = new ErrorVO("Column not found", "Column not found", 400);
+        response = new ResponseEntity<>(new Data<>(errorVO));
+        return response;
+
     }
 
     @Override
     public ResponseEntity<Data<List<ColumnVO>>> findAll(@NonNull ColumnCriteria criteria) {
-        List<ColumnVO> columnList = repository.findAll(criteria)
-                .orElse(new ArrayList<>())
-                .stream().map(ColumnVO::new)
-                .toList();
+        List<Column> columnList = repository.findAll(new ColumnCriteria()).get();
 
-        return new ResponseEntity<>(new Data<>(columnList, columnList.size()));
+        List<ColumnVO> columnVOS = new ArrayList<>();
+
+        for (Column column : columnList) {
+            columnVOS.add(mapper.getColumnVo(column));
+        }
+
+        ResponseEntity<Data<List<ColumnVO>>> listResponseEntity = new ResponseEntity<>(new Data<>(columnVOS, columnVOS.size()));
+        return listResponseEntity;
+    }
+
+
+
+    public ResponseEntity<Data<List<ColumnVO>>> getColumnsByIds(List<Long> ids) {
+
+        List<ColumnVO> columns = new ArrayList<>();
+
+        for (Long id : ids) {
+            columns.add(findById(id).getData().getBody());
+        }
+
+        return new ResponseEntity<>(new Data<>(columns));
     }
 
     public static ColumnService getInstance() {
         if (instance == null) {
             instance = new ColumnService(
                     ApplicationContextHolder.getBean(ColumnRepository.class),
-                    ApplicationContextHolder.getBean(BaseMapper.class)
+                    ApplicationContextHolder.getBean(ColumnMapper.class)
             );
         }
         return instance;

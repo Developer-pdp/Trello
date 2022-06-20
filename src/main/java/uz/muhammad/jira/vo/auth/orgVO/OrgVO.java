@@ -27,12 +27,12 @@ public class OrgVO extends GenericVO {
     private Long ownerId;
     private List<Long> projects = new ArrayList<>();
     private Map<Long, String> members = new HashMap<>();
-    private LocalDateTime createdAt;
+    private String createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private Long updatedBy;
-    private Boolean deleted  = false;
-    private Boolean blocked = false;
+    private boolean deleted  = false;
+    private boolean blocked = false;
 
     public OrgVO(Organization organization) {
         super(organization.getId());
@@ -41,7 +41,7 @@ public class OrgVO extends GenericVO {
         this.createdBy = organization.getCreatedBy();
     }
 
-    public OrgVO(Long id, LocalDateTime createdAt, Long createdBy, Long id1, String name) {
+    public OrgVO(Long id, String createdAt, Long createdBy, Long id1, String name) {
         super(id);
         this.createdAt = createdAt;
         this.createdBy = createdBy;

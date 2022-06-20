@@ -27,10 +27,10 @@ public class Organization implements BaseEntity {
     private Long ownerId;
     private List<Long> projects = new ArrayList<>();
     private Map<Long, String> members = new HashMap<>();
-    private LocalDateTime createdAt;
+    private String createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private Long updatedBy;
-    private Boolean deleted;
-    private Boolean blocked;
+    private boolean deleted = false;
+    private boolean blocked = false;
 }

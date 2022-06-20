@@ -1,13 +1,16 @@
 package uz.muhammad.jira.services.auth;
 
+import com.google.gson.reflect.TypeToken;
 import lombok.NonNull;
 import uz.muhammad.jira.configs.ApplicationContextHolder;
+import uz.muhammad.jira.criteria.OrgCriteria;
 import uz.muhammad.jira.criteria.UserCriteria;
 import uz.muhammad.jira.domains.auth.User;
 import uz.muhammad.jira.mappers.UserMapper;
 import uz.muhammad.jira.repository.AbstractRepository;
 import uz.muhammad.jira.repository.auth.UserRepository;
 import uz.muhammad.jira.services.GenericCRUDService;
+import uz.muhammad.jira.vo.auth.orgVO.OrgVO;
 import uz.muhammad.jira.vo.auth.userVO.UserCreateVO;
 import uz.muhammad.jira.vo.auth.userVO.UserUpdateVO;
 import uz.muhammad.jira.vo.auth.userVO.UserVO;
@@ -15,6 +18,11 @@ import uz.muhammad.jira.vo.response.Data;
 import uz.muhammad.jira.vo.response.ErrorVO;
 import uz.muhammad.jira.vo.response.ResponseEntity;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +93,7 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
         UserVO userVO = mapper.getUserVO(userOptional.get());
         userVO.setUserName(dto.getUserName());
         userVO.setPassword(dto.getPassword());
-        userVO.setUpdatedAt(LocalDateTime.now());
+        userVO.setUpdatedAt(LocalDateTime.now().toString());
         repository.update(mapper.getUser(userVO));
         Data<String> data = new Data<>("User updated");
         ResponseEntity<Data<String>> response = new ResponseEntity<>(data);
@@ -93,6 +101,39 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
         return response;
 
     }
+
+
+//    public List<User> load() {
+//        // TODO: 6/15/2022 load data from file here
+//
+//        try{
+//
+//            FileReader reader = new FileReader("src/main/resources/users.json");
+//            Type type = new TypeToken<List<User>>(){}.getType();
+//            List<User> userList = this.gson.fromJson(reader, type);
+//            if (userList==null){
+//                userList = new ArrayList<>();
+//            }
+//            return userList;
+//
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
+
+//    public void saveToJson() {
+//        try {
+//            FileWriter fileWriter = new FileWriter("src/main/resources/users.json");
+//            fileWriter.write(this.gson.toJson(repository.findAll(new UserCriteria())));
+//            fileWriter.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 
 
     @Override
@@ -143,14 +184,17 @@ public class UserService extends AbstractRepository<UserRepository, UserMapper> 
         return new ResponseEntity<>(new Data<>(null));
     }
 
-    public List<UserVO> getUsersByIds(Set<Long> userIds) {
+    public ResponseEntity<Data<List<UserVO>>> getUsersByIds(List<Long> userIds) {
 
         List<UserVO> users = new ArrayList<>();
 
-        for (Long id : userIds) {
-            users.add(findById(id).getData().getBody());
+        for (UserVO user : findAll(new UserCriteria()).getData().getBody()) {
+            if(userIds.contains(user.getId()) && (!user.isDeleted() || !user.isBlocked())){
+                users.add(user);
+            }
         }
 
-        return users;
+        return new ResponseEntity<>(new Data<>(users, users.size()));
+
     }
 }

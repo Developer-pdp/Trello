@@ -30,6 +30,7 @@ public class ApplicationContextHolder {
 
             case "TaskService" -> (T) TaskService.getInstance();
             case "TaskRepository" -> (T) TaskRepository.getInstance();
+            case "TaskMapper" -> (T) TaskMapper.getInstance();
 
             case "CommentService" -> (T) CommentService.getInstance();
             case "CommentRepository" -> (T) CommentRepository.getInstance();
@@ -38,17 +39,18 @@ public class ApplicationContextHolder {
             case "MemberRepository" -> (T) MemberRepository.getInstance();
             case "MemberMapper" -> (T) MemberMapper.getInstance();
 
+            case "ColumnService" -> (T) ColumnService.getInstance();
+            case "ColumnRepository" -> (T) ColumnRepository.getInstance();
+            case "ColumnMapper" -> (T) ColumnMapper.getInstance();
+
             default -> throw new RuntimeException("Bean with name '%s' not found".formatted(clazz.getSimpleName()));
         };
     }
 
-    private static Gson gson;
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private static <T> T getGsonBean() {
-        if(gson == null) {
-            gson  = new GsonBuilder().setPrettyPrinting().create();
-        }
-            return (T)gson;
+        return (T)gson;
     }
 
 }

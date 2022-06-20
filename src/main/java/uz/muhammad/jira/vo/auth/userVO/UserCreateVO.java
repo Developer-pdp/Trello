@@ -21,6 +21,6 @@ public class UserCreateVO implements BaseVO {
     private String userName;
     private String password;
     private String email;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
 }

@@ -1,6 +1,7 @@
 package uz.muhammad.jira.repository.auth;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import uz.muhammad.jira.repository.GenericCRUDRepository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -29,7 +31,8 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
 
 
     private static UserRepository instance;
-    private static Gson gson = ApplicationContextHolder.getBean(Gson.class);
+//    public static Gson gson = ApplicationContextHolder.getBean(Gson.class);
+    public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final List<User> users = load();
     private static UserMapper userMapper = ApplicationContextHolder.getBean(UserMapper.class);
 
@@ -38,7 +41,7 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
      * @return list of users
      */
 
-    private static List<User> load() {
+    public static List<User> load() {
         // TODO: 6/15/2022 load data from file here
 
         try{
@@ -59,6 +62,19 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
 
     }
 
+    public static void saveToJson() {
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/resources/users.json");
+            fileWriter.write(gson.toJson(users));
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+
     /**
      * creating the user and adding to the list
      * @param  entity of user
@@ -66,6 +82,7 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
     @Override
     public void create(User entity) {
         users.add(entity);
+        saveToJson();
     }
 
     /**
@@ -79,20 +96,25 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
                 users.set(i, entity);
             }
         }
+        saveToJson();
     }
 
     /**
      * Deleting user
+     *
      * @param id - ID of user that is deleting
+     * @return
      */
     @Override
-    public void deleteByID(Long id) {
+    public boolean deleteByID(Long id) {
         for (User user : users) {
             if(user.getId().equals(id)){
                 users.remove(user);
-                break;
+                saveToJson();
+                return true;
             }
         }
+        return false;
     }
 
     /**

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class CommentUpdateVO extends GenericVO {
-    private LocalDateTime updatedAt;
+    private String  updatedAt;
     private Long updatedBy;
     private boolean blocked;
     private boolean deleted;

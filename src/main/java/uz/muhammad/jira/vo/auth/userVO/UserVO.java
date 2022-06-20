@@ -25,8 +25,10 @@ public class UserVO extends GenericVO {
     private String password;
     private String email;
     private List<Long> organizations = new ArrayList<>();
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String createdAt;
+    private String updatedAt;
+    private boolean deleted;
+    private boolean blocked;
 
     public UserVO(User user) {
         super(user.getId());
@@ -36,7 +38,7 @@ public class UserVO extends GenericVO {
     }
 
     @Builder(builderMethodName = "childBuilder")
-    public UserVO(Long id, String userName, String password, LocalDateTime createdAt) {
+    public UserVO(Long id, String userName, String password, String createdAt) {
         super(id);
         this.userName = userName;
         this.password = password;

@@ -22,9 +22,9 @@ public class Column implements BaseEntity {
     private Long id;
     private String name;
     private List<Long> tasks =new ArrayList<>();
-    private LocalDateTime createdAt;
+    private String createdAt;
     private Long createdBy;
-    private LocalDateTime updatedAt;
+    private String updatedAt;
     private Long updatedBy;
     private boolean blocked;
     private boolean deleted;

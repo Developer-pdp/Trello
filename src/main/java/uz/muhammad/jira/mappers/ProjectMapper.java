@@ -20,7 +20,7 @@ public class ProjectMapper implements BaseMapper {
         Project project = new Project();
         project.setName(projectVO.getName());
         project.setId(System.currentTimeMillis());
-        project.setCreatedAt(LocalDateTime.now());
+        project.setCreatedAt(LocalDateTime.now().toString());
         project.setCreatedBy(projectVO.getId());
 
         return project;

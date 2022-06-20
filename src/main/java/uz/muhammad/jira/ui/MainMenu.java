@@ -30,16 +30,18 @@ public class MainMenu {
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
 
     public static void control(){
+        Tools.clear();
         Tools.userInfo(Session.userName);
-        Writer.println("1. Add organization");
-        Writer.println("2. Organizations");
-        Writer.println("0. Back");
+        Writer.printlnMiddle("1. Add organization", 80, ' ', Color.GREEN);
+        Writer.printlnMiddle("2. Organizations", 80, ' ', Color.GREEN);
+        Writer.printlnMiddle("0. Back", 80, ' ', Color.GREEN);
 
-        String choice = Reader.readLine(" => ");
+        String choice = Reader.readLineMiddle(" => ");
 
         switch (choice){
-            case "1" -> addOrganization();
-            case "2" -> showOrganizations();
+            case "1": addOrganization(); break;
+            case "2": showOrganizations(); break;
+            case "0": return;
         }
 
         control();
@@ -50,11 +52,12 @@ public class MainMenu {
 
     private static void showOrganizations() {
 
+
         Tools.userInfo(Session.userName);
         List<OrgVO> orgVOS = new ArrayList<>();
 
         for (OrgVO orgVO : orgService.findAll(new OrgCriteria()).getData().getBody()) {
-            if(orgVO.getMembers().containsKey(Session.userId)){
+            if(orgVO.getMembers().containsKey(Session.userId) && !orgVO.isDeleted()){
                 orgVOS.add(orgVO);
             }
         }
@@ -63,7 +66,7 @@ public class MainMenu {
 
     private static void addOrganization() {
 
-
+        Tools.clear();
         Tools.userInfo(Session.userName);
 
         OrgCreateVO createVO = new OrgCreateVO();
@@ -74,11 +77,7 @@ public class MainMenu {
         ResponseEntity<Data<Long>> responseData = orgService.create(createVO);
 
         if (responseData.getData().isSuccess()) {
-
-
-//            addProject();
-
-            showOrganizations(); // Add and show All
+           control(); // Add and back
         } else {
             Writer.println(responseData.getData().getError(), Color.RED);
         }
@@ -87,6 +86,7 @@ public class MainMenu {
 
     public static void showAll(List<OrgVO> orgs) {
 
+        Tools.clear();
         Tools.userInfo(Session.userName);
         Writer.printMiddle("All organizations", 100, ' ', Color.CYAN);
         Writer.println("");
@@ -96,14 +96,13 @@ public class MainMenu {
             Writer.printlnMiddle("You have no organizations", 100, ' ', Color.GREEN);
         } else {
             for (OrgVO org : orgs) {
-//                Writer.println("\t\t"+org);
-                Writer.println( "\t\t" + order++ + ") " + org.getName() + " your role:  " + org.getMembers().get(Session.userId));
+                Writer.println("\t\t" + order++ + ") " + org.getName() + " your role:  " + org.getMembers().get(Session.userId));
             }
         }
 
         Writer.println("0. Back");
 
-        int choice = Reader.readInt(" => ");
+        int choice = Reader.readIntMiddle(" => ");
 
         if (choice==0) {
             return;
